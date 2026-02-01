@@ -1,0 +1,44 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Native builds
+.cxx/
+
+# Logs
+*.log
+
+# OS files
+Thumbs.db
+
+# Captures
+captures/
+
+# APKs / Bundles
+*.apk
+*.ap_
+*.aab
+
+# Keystore (DO NOT COMMIT)
+*.jks
+*.keystore
+
+# Firebase / Crashlytics
+google-services.json
+fabric.properties
+
+# Test reports
+test-results/
+reports/
