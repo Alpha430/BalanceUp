@@ -35,5 +35,5 @@ An expense-sharing app, built with **Kotlin**, **XML layouts**, and **Clean Arch
 
 ---
 
-## 📂 Project Structure
+
 
