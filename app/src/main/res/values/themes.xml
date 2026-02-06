@@ -8,8 +8,8 @@
     <style name="Theme.BalanceUp" parent="Base.Theme.BalanceUp" />
 
     <style name="Theme.BalanceUp.Splash" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">#F44336</item>
-        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_round</item>
+        <item name="windowSplashScreenBackground">#210456</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/balanceup_logo</item>
         <item name="postSplashScreenTheme">@style/Theme.BalanceUp</item>
     </style>
 

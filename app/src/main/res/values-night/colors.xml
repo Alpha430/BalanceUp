@@ -2,6 +2,5 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="background">#E7E3E3</color>
     <color name="status_bar_light">#E7E3E3</color>
 </resources>

@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class BaseActivity: ComponentActivity() {
+abstract  class BaseActivity: ComponentActivity() {
 
     protected fun setupEdgeToEdge(root: View) {
         ViewCompat.setOnApplyWindowInsetsListener(root) { v, insets ->

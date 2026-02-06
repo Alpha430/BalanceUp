@@ -17,5 +17,7 @@ class DashboardActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        R.string.app_name
     }
 }

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">BalanceUp</string>
+    <string name="app_description">Manage your finances with ease</string>
+    <string name="sign_in_with_google">Connect to Google</string>
+    <string name="default_web_client_id">695677804219-j4ue0hh1pkkh0j2e04lnmu7e5tja9dv0.apps.googleusercontent.com</string>
+
 </resources>
