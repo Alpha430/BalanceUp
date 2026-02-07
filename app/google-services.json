@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "695677804219",
+    "project_id": "balanceup-6326a",
+    "storage_bucket": "balanceup-6326a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:695677804219:android:946df0044f646da19ad39e",
+        "android_client_info": {
+          "package_name": "com.alpha.balanceup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "695677804219-7vc3634kar0pdethu0qbg38cste57add.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alpha.balanceup",
+            "certificate_hash": "f99ff0671cdb2d8f83d74e86325fefd291c560bc"
+          }
+        },
+        {
+          "client_id": "695677804219-j4ue0hh1pkkh0j2e04lnmu7e5tja9dv0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeOpxzIMTML8cG5fcTC2NKM4pF9COnOo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "695677804219-j4ue0hh1pkkh0j2e04lnmu7e5tja9dv0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
