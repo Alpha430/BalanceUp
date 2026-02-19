@@ -14,11 +14,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "695677804219-69f8hrosl1dd6u202ce1rt3c9ijrikho.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alpha.balanceup",
+            "certificate_hash": "8738f5581776b27691d286101cab532d94c504e9"
+          }
+        },
+        {
           "client_id": "695677804219-7vc3634kar0pdethu0qbg38cste57add.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.alpha.balanceup",
             "certificate_hash": "f99ff0671cdb2d8f83d74e86325fefd291c560bc"
+          }
+        },
+        {
+          "client_id": "695677804219-oolqe32nj9t4u1sj73r74bdihn9ergip.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alpha.balanceup",
+            "certificate_hash": "221badcefeaaf84e326bc629dc40307316ff0abf"
           }
         },
         {
