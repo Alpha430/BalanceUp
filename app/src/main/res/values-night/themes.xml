@@ -1,11 +1,29 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="Base.Theme.BalanceUp" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+
+    <style name="Base.Theme.BalanceUp"
+        parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <!-- Brand -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/onPrimary</item>
+
+        <!-- Background -->
+        <item name="android:colorBackground">@color/background</item>
+        <item name="colorSurface">@color/surface</item>
+
+        <!-- Status / Nav Bars -->
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:navigationBarColor">@color/background</item>
+
+        <!-- Text -->
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+
+        <!-- Buttons -->
+        <item name="materialButtonStyle">@style/Widget.BalanceUp.Button</item>
+
     </style>
 
-    <style name="Theme.BalanceUp.SignIn" parent="Theme.BalanceUp">
-        <item name="android:statusBarColor">@color/status_bar_light</item>
-    </style>
+    <style name="Theme.BalanceUp" parent="Base.Theme.BalanceUp" />
+
 </resources>

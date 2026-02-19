@@ -28,7 +28,7 @@
         </activity>
         <activity
             android:name=".ui.auth.SignInActivity"
-            android:theme="@style/Theme.BalanceUp.SignIn"
+            android:theme="@style/Base.Theme.BalanceUp"
             android:exported="false" />
     </application>
 

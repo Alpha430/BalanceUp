@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Base -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="status_bar_light">#E7E3E3</color>
+
+    <!-- Status Bar -->
+    <color name="status_bar_light">#121212</color>
+
+    <!-- Primary Brand (lighter for dark mode) -->
+    <color name="primary">#FFB74D</color>
+    <color name="onPrimary">#1C1B1F</color>
+
+    <!-- Background & Surface -->
+    <color name="background">#121212</color>
+    <color name="surface">#1E1E1E</color>
+
+    <!-- Primary Text -->
+    <color name="text_primary">#E6E1E5</color>
+
+    <!-- Secondary Text -->
+    <color name="text_secondary">#CAC4D0</color>
+
+    <!-- Hint / Disabled Text -->
+    <color name="text_hint">#938F99</color>
+
+    <!-- Text on Primary Button -->
+    <color name="text_on_primary">#1C1B1F</color>
+
+    <!-- Primary Button -->
+    <color name="button_primary_bg">#FFB74D</color>
+    <color name="button_primary_text">#1C1B1F</color>
+    <color name="button_primary_pressed">#FFA726</color>
+
+    <!-- Secondary Button -->
+    <color name="button_secondary_bg">#3E2723</color>
+    <color name="button_secondary_text">#FFB74D</color>
+
+    <!-- Disabled Button -->
+    <color name="button_disabled_bg">#2C2C2C</color>
+    <color name="button_disabled_text">#666666</color>
+
 </resources>
