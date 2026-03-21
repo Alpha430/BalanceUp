@@ -1,11 +1,11 @@
 package com.alpha.balanceup.core.base
 
 import android.view.View
-import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-abstract  class BaseActivity: ComponentActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
     protected fun setupEdgeToEdge(root: View) {
         ViewCompat.setOnApplyWindowInsetsListener(root) { v, insets ->

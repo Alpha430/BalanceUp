@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
     android:padding="24dp">
+
+
+    <TextView
+        android:id="@+id/tvSkip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:textColor="@color/text_secondary"
+        android:text="@string/skip"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ImageView
         android:id="@+id/ivLogo"
@@ -47,7 +62,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnGoogleSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,7 +70,6 @@
         android:paddingHorizontal="24dp"
         android:text="@string/sign_in_with_google"
         android:textSize="14sp"
-        android:background="@color/button_primary_bg"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
