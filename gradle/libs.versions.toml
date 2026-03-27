@@ -14,7 +14,7 @@ lifecycle = "2.8.4"
 google-auth = "21.1.0"
 google-services = "4.4.2"
 splashscreen = "1.0.1"
-room = "2.6.1"
+room = "2.7.0-alpha13"
 coroutines = "1.9.0"
 
 credentials = "1.5.0"
