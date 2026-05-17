@@ -8,5 +8,5 @@
     <string name="total_spends">Total Spends</string>
     <string name="you_get">You Get</string>
     <string name="default_balance">₹ 0.00</string>
-
+    <string name="settle_up_msg">You are settled up !</string>
 </resources>
