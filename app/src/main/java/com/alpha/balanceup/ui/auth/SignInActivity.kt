@@ -12,6 +12,8 @@ import androidx.credentials.exceptions.GetCredentialException
 import androidx.lifecycle.lifecycleScope
 import com.alpha.balanceup.R
 import com.alpha.balanceup.core.base.BaseActivity
+import com.alpha.balanceup.data.local.database.AppDatabase
+import com.alpha.balanceup.data.local.entity.UserEntity
 import com.alpha.balanceup.databinding.ActivitySignInBinding
 import com.alpha.balanceup.ui.dashboard.DashboardActivity
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
@@ -20,11 +22,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 class SignInActivity : BaseActivity() {
 
     companion object {
-        private const val TAG = "GoogleActivity"
+        private const val TAG = "SignInActivity"
     }
 
     private lateinit var binding: ActivitySignInBinding
@@ -49,6 +52,36 @@ class SignInActivity : BaseActivity() {
             launchCredentialManager()
         }
 
+        binding.tvSkip.setOnClickListener {
+            handleGuestSignIn()
+        }
+
+    }
+
+    private fun handleGuestSignIn() {
+        lifecycleScope.launch {
+            val uniqueId = UUID.randomUUID().toString()
+            val guestUser = UserEntity(
+                id = uniqueId,
+                name = "Guest_${uniqueId.take(8)}",
+                email = null,
+                googleId = null,
+                isGuest = true,
+                synced = false
+            )
+            
+            val db = AppDatabase.getDatabase(this@SignInActivity)
+            db.userDao().insert(guestUser)
+            
+            navigateToDashboard()
+        }
+    }
+
+    private fun navigateToDashboard() {
+        val intent = Intent(this, DashboardActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
     }
 
 
@@ -113,16 +146,21 @@ class SignInActivity : BaseActivity() {
         if (user != null) {
             // User is signed in
             Log.d(TAG, "User signed in: ${user.displayName}, ${user.email}")
-
-
-            val intent = Intent(this, DashboardActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            finish()
+            
+            // Optionally store the Firebase user in Room here as well if needed
+            lifecycleScope.launch {
+                val userEntity = UserEntity(
+                    id = user.uid,
+                    name = user.displayName ?: "User",
+                    email = user.email,
+                    googleId = user.uid,
+                    isGuest = false,
+                    synced = true
+                )
+                AppDatabase.getDatabase(this@SignInActivity).userDao().insert(userEntity)
+                navigateToDashboard()
+            }
         }
     }
-
-
-
 
 }

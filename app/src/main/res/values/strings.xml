@@ -4,5 +4,9 @@
     <string name="sign_in_with_google">Connect to Google</string>
     <string name="default_web_client_id">695677804219-7vc3634kar0pdethu0qbg38cste57add.apps.googleusercontent.com</string>
     <string name="skip">SKIP</string>
+    <string name="account">Account</string>
+    <string name="total_spends">Total Spends</string>
+    <string name="you_get">You Get</string>
+    <string name="default_balance">₹ 0.00</string>
 
 </resources>

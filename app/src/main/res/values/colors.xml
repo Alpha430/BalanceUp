@@ -7,6 +7,9 @@
     <color name="primary">#F57C00</color>          <!-- Main Orange -->
     <color name="onPrimary">#FFFFFF</color>        <!-- Text on orange -->
 
+    <color name="gradient_start">#F57C00</color>   <!-- Orange -->
+    <color name="gradient_end">#FFE0B2</color>     <!-- Light Orange -->
+
     <color name="background">#FFF8F1</color>       <!-- Warm light background -->
     <color name="surface">#FFFFFF</color>          <!-- Cards / sheets -->
 
@@ -30,13 +33,4 @@
 
     <color name="button_disabled_bg">#E0E0E0</color>
     <color name="button_disabled_text">#9E9E9E</color>
-
-
-
-
-
-
-
-
-
 </resources>
