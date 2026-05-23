@@ -1,5 +1,6 @@
 package com.alpha.balanceup.ui.dashboard
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.core.view.WindowInsetsControllerCompat
 import com.alpha.balanceup.core.base.BaseActivity
@@ -15,9 +16,12 @@ class DashboardActivity : BaseActivity() {
         setContentView(binding.root)
         setupEdgeToEdge(binding.root)
         
-        // Ensure status bar icons are dark if the top is light, or light if the top is dark.
-        // Since we have a gradient at the top, let's keep it consistent.
         WindowInsetsControllerCompat(window, window.decorView)
             .isAppearanceLightStatusBars = false // Set to false for white icons on colored background
+
+        binding.fabAddExpense.setOnClickListener {
+            val intent = Intent(this, AddExpenseActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

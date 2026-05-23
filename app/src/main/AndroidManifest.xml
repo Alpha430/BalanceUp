@@ -17,6 +17,9 @@
             android:name=".ui.dashboard.DashboardActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.dashboard.AddExpenseActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.BalanceUp.Splash" >
