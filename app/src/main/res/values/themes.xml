@@ -16,11 +16,13 @@
 
         <!-- Toolbar / AppBar -->
         <item name="colorSurfaceVariant">@color/surface</item>
-        <item name="android:statusBarColor">?attr/colorSurface</item>
+
+        <!-- Status Bar & Navigation Bar -->
+        <item name="android:statusBarColor">@color/primary</item>
         <item name="android:navigationBarColor">?attr/colorSurface</item>
 
-        <!-- Fix System Bar Icons (Dark icons on light background) -->
-        <item name="android:windowLightStatusBar">true</item>
+        <!-- Fix System Bar Icons -->
+        <item name="android:windowLightStatusBar">false</item> <!-- White icons for orange status bar -->
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
 
         <!-- Text -->
