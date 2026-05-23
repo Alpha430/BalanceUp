@@ -7,16 +7,24 @@
     android:background="@color/background"
     tools:context=".ui.dashboard.AddExpenseActivity">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="?attr/homeAsUpIndicator"
-        app:navigationIconTint="@color/primary"
-        app:title="@string/add_expense"
-        app:titleTextColor="@color/primary" />
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            app:navigationIconTint="@color/white"
+            app:title="@string/add_expense"
+            app:titleCentered="true"
+            app:titleTextColor="@color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
@@ -24,7 +32,7 @@
         android:layout_height="0dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toTopOf="@+id/layoutBottom"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
