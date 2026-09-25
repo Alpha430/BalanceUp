@@ -9,9 +9,10 @@ import com.alpha.balanceup.data.local.dao.ExpenseDao
 import com.alpha.balanceup.data.local.entity.UserEntity
 import com.alpha.balanceup.data.local.entity.GroupEntity
 import com.alpha.balanceup.data.local.entity.ExpenseItemEntity
+import com.alpha.balanceup.data.local.entity.GroupMemberEntity
 
 @Database(
-    entities = [UserEntity::class, GroupEntity::class, ExpenseItemEntity::class],
+    entities = [UserEntity::class, GroupEntity::class, ExpenseItemEntity::class, GroupMemberEntity::class],
     version = 1
 )
 abstract class AppDatabase : RoomDatabase() {

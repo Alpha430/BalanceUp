@@ -2,17 +2,14 @@ package com.alpha.balanceup.ui.dashboard
 
 import android.os.Bundle
 import android.view.View
-import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.alpha.balanceup.R
 import com.alpha.balanceup.core.base.BaseActivity
 import com.alpha.balanceup.databinding.ActivityAddExpenseBinding
-import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -21,7 +18,7 @@ class AddExpenseActivity : BaseActivity() {
 
     private lateinit var binding: ActivityAddExpenseBinding
     private val viewModel: AddExpenseViewModel by viewModels()
-    private val adapter = ExpenseAdapter()
+    private val memberAdapter = MemberAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,9 +32,9 @@ class AddExpenseActivity : BaseActivity() {
     }
 
     private fun setupRecyclerView() {
-        binding.rvProducts.apply {
+        binding.rvMembers.apply {
             layoutManager = LinearLayoutManager(this@AddExpenseActivity)
-            adapter = this@AddExpenseActivity.adapter
+            adapter = memberAdapter
         }
     }
 
@@ -46,8 +43,9 @@ class AddExpenseActivity : BaseActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
 
+        // Step 1: Create Group Name
         binding.tilGroupName.setEndIconOnClickListener {
-            val groupName = binding.etGroupName.text.toString()
+            val groupName = binding.etGroupName.text.toString().trim()
             if (groupName.isNotBlank()) {
                 viewModel.createGroup(groupName)
             } else {
@@ -55,34 +53,26 @@ class AddExpenseActivity : BaseActivity() {
             }
         }
 
-        binding.btnAddProduct.setOnClickListener {
-            val productName = binding.etProductName.text.toString()
-            val quantity = binding.etQuantity.text.toString()
-            val price = binding.etPrice.text.toString()
-            val paidBy = binding.etPaidBy.text.toString()
+        // Step 2: Add Members
+        binding.tilMemberName.setEndIconOnClickListener {
+            val name = binding.etMemberName.text.toString().trim()
+            if (name.isNotBlank()) {
+                viewModel.addMember(name)
+                binding.etMemberName.text?.clear()
+            } else {
+                binding.tilMemberName.error = "Enter name"
+            }
+        }
 
-            if (productName.isBlank() || price.isBlank() || paidBy.isBlank()) {
-                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+        // Finish Group Creation Flow
+        binding.btnCreateGroup.setOnClickListener {
+            if (memberAdapter.itemCount < 2) {
+                Toast.makeText(this, "Add at least 2 people", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
-            viewModel.addExpenseItem(productName, quantity, price, paidBy)
-            clearItemFields()
+            Toast.makeText(this, "Group Created successfully!", Toast.LENGTH_SHORT).show()
+            finish()
         }
-
-        binding.btnBalanceUp.setOnClickListener {
-            val anim = AnimationUtils.loadAnimation(this, R.anim.btn_click)
-            it.startAnimation(anim)
-            handleBalanceUp()
-        }
-    }
-
-    private fun clearItemFields() {
-        binding.etProductName.text?.clear()
-        binding.etQuantity.text?.clear()
-        binding.etPrice.text?.clear()
-        binding.etPaidBy.text?.clear()
-        binding.etProductName.requestFocus()
     }
 
     private fun observeViewModel() {
@@ -91,30 +81,20 @@ class AddExpenseActivity : BaseActivity() {
                 launch {
                     viewModel.groupId.collect { id ->
                         if (id != null) {
-                            binding.layoutExpenseContent.visibility = View.VISIBLE
-                            binding.layoutBottom.visibility = View.VISIBLE
+                            binding.layoutAddMembers.visibility = View.VISIBLE
+                            binding.btnCreateGroup.visibility = View.VISIBLE
                             binding.tilGroupName.isEnabled = false
+                            binding.tilGroupName.setEndIconDrawable(null)
                         }
                     }
                 }
 
                 launch {
-                    viewModel.expenseItems.collect { items ->
-                        adapter.submitList(items)
-                    }
-                }
-
-                launch {
-                    viewModel.totalExpense.collect { total ->
-                        binding.tvTotalValue.text = "₹ ${String.format("%.2f", total)}"
+                    viewModel.groupMembers.collect { members ->
+                        memberAdapter.submitList(members)
                     }
                 }
             }
         }
-    }
-
-    private fun handleBalanceUp() {
-        Toast.makeText(this, "Calculating Balances...", Toast.LENGTH_SHORT).show()
-        // Logic for final settlements can be added here
     }
 }

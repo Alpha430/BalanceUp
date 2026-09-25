@@ -11,47 +11,27 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AddExpenseViewModel @Inject constructor(
+class AddExpenseItemViewModel @Inject constructor(
     private val repository: ExpenseRepository
 ) : ViewModel() {
 
     private val _groupId = MutableStateFlow<Long?>(null)
-    val groupId: StateFlow<Long?> = _groupId.asStateFlow()
+    
+    private val _saveSuccess = MutableSharedFlow<Boolean>()
+    val saveSuccess = _saveSuccess.asSharedFlow()
 
     val groupMembers: Flow<List<GroupMemberEntity>> = _groupId.flatMapLatest { id ->
         if (id != null) repository.getMembersForGroup(id) else flowOf(emptyList())
     }
 
-    val expenseItems: Flow<List<ExpenseItemEntity>> = _groupId.flatMapLatest { id ->
-        if (id != null) repository.getExpensesForGroup(id) else flowOf(emptyList())
+    fun setGroupId(id: Long) {
+        _groupId.value = id
     }
 
-    val totalExpense: Flow<Double> = _groupId.flatMapLatest { id ->
-        if (id != null) repository.getTotalExpenseForGroup(id).map { it ?: 0.0 } else flowOf(0.0)
-    }
-
-    fun createGroup(name: String) {
-        if (name.isBlank()) return
-        viewModelScope.launch {
-            val id = repository.createGroup(name)
-            _groupId.value = id
-        }
-    }
-
-    fun addMember(name: String) {
-        val gId = _groupId.value ?: return
-        if (name.isBlank()) return
-        viewModelScope.launch {
-            repository.addMember(GroupMemberEntity(groupId = gId, name = name))
-        }
-    }
-
-    fun addExpenseItem(productName: String, quantity: String, price: String, paidBy: String) {
+    fun saveExpense(productName: String, quantity: String, price: String, paidBy: String) {
         val gId = _groupId.value ?: return
         val qty = quantity.toIntOrNull() ?: 1
         val prc = price.toDoubleOrNull() ?: 0.0
-
-        if (productName.isBlank() || paidBy.isBlank()) return
 
         viewModelScope.launch {
             val item = ExpenseItemEntity(
@@ -62,6 +42,7 @@ class AddExpenseViewModel @Inject constructor(
                 paidBy = paidBy
             )
             repository.addExpenseItem(item)
+            _saveSuccess.emit(true)
         }
     }
 }

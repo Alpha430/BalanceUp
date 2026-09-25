@@ -127,15 +127,18 @@
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
-    <!-- Main Content Area -->
-    <FrameLayout
-        android:id="@+id/nav_host_fragment"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvGroups"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingTop="8dp"
+        android:paddingBottom="80dp"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guidelineTop" />
+        app:layout_constraintTop_toBottomOf="@id/guidelineTop"
+        tools:listitem="@layout/item_group" />
 
     <!-- Empty State Message -->
     <TextView
@@ -145,7 +148,7 @@
         android:text="@string/settle_up_msg"
         android:textColor="@color/text_secondary"
         android:textSize="16sp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -158,7 +161,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:contentDescription="Add Expense"
+        android:contentDescription="Add Group"
         android:src="@drawable/ic_add"
         app:backgroundTint="@color/primary"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
