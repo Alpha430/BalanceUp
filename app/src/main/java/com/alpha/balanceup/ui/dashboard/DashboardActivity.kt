@@ -50,7 +50,7 @@ class DashboardActivity : BaseActivity() {
     private fun setupListeners() {
         binding.fabAddExpense.setOnClickListener {
             // This button now specifically creates a new group
-            val intent = Intent(this, AddExpenseActivity::class.java)
+            val intent = Intent(this, AddGroupActivity::class.java)
             startActivity(intent)
         }
     }

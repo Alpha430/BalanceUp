@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class AddExpenseActivity : BaseActivity() {
+class AddGroupActivity : BaseActivity() {
 
     private lateinit var binding: ActivityAddExpenseBinding
     private val viewModel: AddExpenseViewModel by viewModels()
@@ -33,7 +33,7 @@ class AddExpenseActivity : BaseActivity() {
 
     private fun setupRecyclerView() {
         binding.rvMembers.apply {
-            layoutManager = LinearLayoutManager(this@AddExpenseActivity)
+            layoutManager = LinearLayoutManager(this@AddGroupActivity)
             adapter = memberAdapter
         }
     }
