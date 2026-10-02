@@ -2,7 +2,6 @@ package com.alpha.balanceup.ui.dashboard
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alpha.balanceup.data.local.entity.ExpenseItemEntity
 import com.alpha.balanceup.data.local.entity.GroupMemberEntity
 import com.alpha.balanceup.data.repository.ExpenseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,14 +21,6 @@ class AddExpenseViewModel @Inject constructor(
         if (id != null) repository.getMembersForGroup(id) else flowOf(emptyList())
     }
 
-    val expenseItems: Flow<List<ExpenseItemEntity>> = _groupId.flatMapLatest { id ->
-        if (id != null) repository.getExpensesForGroup(id) else flowOf(emptyList())
-    }
-
-    val totalExpense: Flow<Double> = _groupId.flatMapLatest { id ->
-        if (id != null) repository.getTotalExpenseForGroup(id).map { it ?: 0.0 } else flowOf(0.0)
-    }
-
     fun createGroup(name: String) {
         if (name.isBlank()) return
         viewModelScope.launch {
@@ -43,25 +34,6 @@ class AddExpenseViewModel @Inject constructor(
         if (name.isBlank()) return
         viewModelScope.launch {
             repository.addMember(GroupMemberEntity(groupId = gId, name = name))
-        }
-    }
-
-    fun addExpenseItem(productName: String, quantity: String, price: String, paidBy: String) {
-        val gId = _groupId.value ?: return
-        val qty = quantity.toIntOrNull() ?: 1
-        val prc = price.toDoubleOrNull() ?: 0.0
-
-        if (productName.isBlank() || paidBy.isBlank()) return
-
-        viewModelScope.launch {
-            val item = ExpenseItemEntity(
-                groupId = gId,
-                productName = productName,
-                quantity = qty,
-                price = prc,
-                paidBy = paidBy
-            )
-            repository.addExpenseItem(item)
         }
     }
 }

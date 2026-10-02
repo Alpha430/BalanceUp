@@ -20,7 +20,6 @@ data class ExpenseItemEntity(
     val id: Long = 0,
     val groupId: Long,
     val productName: String,
-    val quantity: Int,
     val price: Double,
     val paidBy: String,
     val createdAt: Long = System.currentTimeMillis()

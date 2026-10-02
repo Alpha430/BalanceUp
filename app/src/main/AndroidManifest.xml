@@ -28,6 +28,10 @@
             android:exported="false" />
 
         <activity
+            android:name=".ui.dashboard.GroupMembersActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ui.dashboard.AddExpenseItemActivity"
             android:exported="false"
             android:label="Add Expense" />

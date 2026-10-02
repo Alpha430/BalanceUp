@@ -28,16 +28,14 @@ class AddExpenseItemViewModel @Inject constructor(
         _groupId.value = id
     }
 
-    fun saveExpense(productName: String, quantity: String, price: String, paidBy: String) {
+    fun saveExpense(productName: String, price: String, paidBy: String) {
         val gId = _groupId.value ?: return
-        val qty = quantity.toIntOrNull() ?: 1
         val prc = price.toDoubleOrNull() ?: 0.0
 
         viewModelScope.launch {
             val item = ExpenseItemEntity(
                 groupId = gId,
                 productName = productName,
-                quantity = qty,
                 price = prc,
                 paidBy = paidBy
             )

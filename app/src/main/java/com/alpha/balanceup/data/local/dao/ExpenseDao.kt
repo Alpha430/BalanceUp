@@ -18,6 +18,12 @@ interface ExpenseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertExpenseItem(item: ExpenseItemEntity)
 
+    @Delete
+    suspend fun deleteGroup(group: GroupEntity)
+
+    @Query("DELETE FROM groups WHERE id = :groupId")
+    suspend fun deleteGroupById(groupId: Long)
+
     @Query("SELECT * FROM groups ORDER BY createdAt DESC")
     fun getAllGroups(): Flow<List<GroupEntity>>
 
@@ -30,6 +36,6 @@ interface ExpenseDao {
     @Query("SELECT * FROM expense_items WHERE groupId = :groupId ORDER BY createdAt DESC")
     fun getExpensesForGroup(groupId: Long): Flow<List<ExpenseItemEntity>>
 
-    @Query("SELECT SUM(price * quantity) FROM expense_items WHERE groupId = :groupId")
+    @Query("SELECT SUM(price) FROM expense_items WHERE groupId = :groupId")
     fun getTotalExpenseForGroup(groupId: Long): Flow<Double?>
 }

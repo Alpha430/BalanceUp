@@ -8,8 +8,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alpha.balanceup.R
 import com.alpha.balanceup.core.base.BaseActivity
 import com.alpha.balanceup.databinding.ActivityGroupDetailsBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -46,6 +48,29 @@ class GroupDetailsActivity : BaseActivity() {
         binding.toolbar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
+        
+        binding.toolbar.inflateMenu(R.menu.group_menu)
+        binding.toolbar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.action_delete -> {
+                    showDeleteConfirmation()
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
+    private fun showDeleteConfirmation() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Delete Group")
+            .setMessage("Are you sure you want to delete this group? All associated members and expenses will be permanently removed.")
+            .setNegativeButton("Cancel", null)
+            .setPositiveButton("Delete") { _, _ ->
+                viewModel.deleteGroup()
+                finish()
+            }
+            .show()
     }
 
     private fun setupRecyclerView() {

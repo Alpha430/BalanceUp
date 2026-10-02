@@ -1,10 +1,12 @@
 package com.alpha.balanceup.ui.dashboard
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.alpha.balanceup.data.local.entity.ExpenseItemEntity
 import com.alpha.balanceup.data.repository.ExpenseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,5 +27,12 @@ class GroupDetailsViewModel @Inject constructor(
 
     val totalExpense: Flow<Double> = _groupId.flatMapLatest { id ->
         if (id != null) repository.getTotalExpenseForGroup(id).map { it ?: 0.0 } else flowOf(0.0)
+    }
+
+    fun deleteGroup() {
+        val id = _groupId.value ?: return
+        viewModelScope.launch {
+            repository.deleteGroup(id)
+        }
     }
 }

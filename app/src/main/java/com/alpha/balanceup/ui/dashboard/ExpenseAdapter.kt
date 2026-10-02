@@ -23,8 +23,7 @@ class ExpenseAdapter : ListAdapter<ExpenseItemEntity, ExpenseAdapter.ViewHolder>
         fun bind(item: ExpenseItemEntity) {
             binding.tvProductName.text = item.productName
             binding.tvPaidBy.text = "Paid by: ${item.paidBy}"
-            binding.tvPrice.text = "₹ ${item.price * item.quantity}"
-            binding.tvQuantity.text = "Qty: ${item.quantity}"
+            binding.tvPrice.text = "₹ ${String.format("%.2f", item.price)}"
         }
     }
 

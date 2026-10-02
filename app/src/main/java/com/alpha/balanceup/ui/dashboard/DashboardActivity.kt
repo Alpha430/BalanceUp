@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alpha.balanceup.R
 import com.alpha.balanceup.core.base.BaseActivity
 import com.alpha.balanceup.databinding.ActivityDashboardBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,11 +36,24 @@ class DashboardActivity : BaseActivity() {
 
     private fun setupRecyclerView() {
         groupAdapter = GroupAdapter { group ->
-            val intent = Intent(this, GroupDetailsActivity::class.java).apply {
-                putExtra("GROUP_ID", group.id)
-                putExtra("GROUP_NAME", group.name)
+            when (binding.bottomNavigation.selectedItemId) {
+                R.id.navigation_home -> {
+                    // From Home: Go to Group Details to add expense
+                    val intent = Intent(this, GroupDetailsActivity::class.java).apply {
+                        putExtra("GROUP_ID", group.id)
+                        putExtra("GROUP_NAME", group.name)
+                    }
+                    startActivity(intent)
+                }
+                R.id.navigation_group -> {
+                    // From Group: Go to Group Members list
+                    val intent = Intent(this, GroupMembersActivity::class.java).apply {
+                        putExtra("GROUP_ID", group.id)
+                        putExtra("GROUP_NAME", group.name)
+                    }
+                    startActivity(intent)
+                }
             }
-            startActivity(intent)
         }
         binding.rvGroups.apply {
             layoutManager = LinearLayoutManager(this@DashboardActivity)
@@ -49,9 +63,31 @@ class DashboardActivity : BaseActivity() {
 
     private fun setupListeners() {
         binding.fabAddExpense.setOnClickListener {
-            // This button now specifically creates a new group
             val intent = Intent(this, AddGroupActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> {
+                    binding.topSection.visibility = View.VISIBLE
+                    binding.layoutCards.visibility = View.VISIBLE
+                    binding.fabAddExpense.show()
+                    true
+                }
+                R.id.navigation_group -> {
+                    // Hide dashboard specific header if needed
+                    binding.topSection.visibility = View.GONE
+                    binding.layoutCards.visibility = View.GONE
+                    binding.fabAddExpense.hide()
+                    true
+                }
+                R.id.navigation_analytics -> {
+                    // Analytics logic
+                    true
+                }
+                else -> false
+            }
         }
     }
 
