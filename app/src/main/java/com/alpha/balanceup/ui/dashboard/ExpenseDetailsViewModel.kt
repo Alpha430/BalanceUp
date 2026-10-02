@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GroupDetailsViewModel @Inject constructor(
+class ExpenseDetailsViewModel @Inject constructor(
     private val repository: ExpenseRepository
 ) : ViewModel() {
 

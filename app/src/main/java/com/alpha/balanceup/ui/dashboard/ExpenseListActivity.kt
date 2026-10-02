@@ -16,11 +16,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class GroupDetailsActivity : BaseActivity() {
+class ExpenseListActivity : BaseActivity() {
 
     private lateinit var binding: ActivityGroupDetailsBinding
-    private val viewModel: GroupDetailsViewModel by viewModels()
-    private val expenseAdapter = ExpenseAdapter()
+    private val viewModel: ExpenseDetailsViewModel by viewModels()
+    private lateinit var expenseAdapter: ExpenseAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,8 +74,14 @@ class GroupDetailsActivity : BaseActivity() {
     }
 
     private fun setupRecyclerView() {
+        expenseAdapter = ExpenseAdapter { expense ->
+            val intent = Intent(this, AddExpenseItemActivity::class.java).apply {
+                putExtra("EXPENSE_ID", expense.id)
+            }
+            startActivity(intent)
+        }
         binding.rvExpenses.apply {
-            layoutManager = LinearLayoutManager(this@GroupDetailsActivity)
+            layoutManager = LinearLayoutManager(this@ExpenseListActivity)
             adapter = expenseAdapter
         }
     }

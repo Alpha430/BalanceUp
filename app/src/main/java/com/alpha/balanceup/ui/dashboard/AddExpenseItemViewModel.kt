@@ -16,7 +16,11 @@ class AddExpenseItemViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _groupId = MutableStateFlow<Long?>(null)
+    private val _expenseId = MutableStateFlow<Long?>(null)
     
+    private val _existingExpense = MutableStateFlow<ExpenseItemEntity?>(null)
+    val existingExpense = _existingExpense.asStateFlow()
+
     private val _saveSuccess = MutableSharedFlow<Boolean>()
     val saveSuccess = _saveSuccess.asSharedFlow()
 
@@ -28,18 +32,49 @@ class AddExpenseItemViewModel @Inject constructor(
         _groupId.value = id
     }
 
+    fun setExpenseId(id: Long) {
+        _expenseId.value = id
+        viewModelScope.launch {
+            val expense = repository.getExpenseById(id)
+            _existingExpense.value = expense
+            if (expense != null) {
+                _groupId.value = expense.groupId
+            }
+        }
+    }
+
     fun saveExpense(productName: String, price: String, paidBy: String) {
         val gId = _groupId.value ?: return
         val prc = price.toDoubleOrNull() ?: 0.0
+        val expId = _expenseId.value ?: 0L
 
         viewModelScope.launch {
-            val item = ExpenseItemEntity(
-                groupId = gId,
-                productName = productName,
-                price = prc,
-                paidBy = paidBy
-            )
-            repository.addExpenseItem(item)
+            val item = if (expId != 0L) {
+                _existingExpense.value?.copy(
+                    productName = productName,
+                    price = prc,
+                    paidBy = paidBy
+                ) ?: ExpenseItemEntity(
+                    id = expId,
+                    groupId = gId,
+                    productName = productName,
+                    price = prc,
+                    paidBy = paidBy
+                )
+            } else {
+                ExpenseItemEntity(
+                    groupId = gId,
+                    productName = productName,
+                    price = prc,
+                    paidBy = paidBy
+                )
+            }
+
+            if (expId != 0L) {
+                repository.updateExpenseItem(item)
+            } else {
+                repository.addExpenseItem(item)
+            }
             _saveSuccess.emit(true)
         }
     }

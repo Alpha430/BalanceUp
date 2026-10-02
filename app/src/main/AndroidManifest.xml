@@ -24,7 +24,7 @@
             android:label="Create Group" />
 
         <activity
-            android:name=".ui.dashboard.GroupDetailsActivity"
+            android:name=".ui.dashboard.ExpenseListActivity"
             android:exported="false" />
 
         <activity

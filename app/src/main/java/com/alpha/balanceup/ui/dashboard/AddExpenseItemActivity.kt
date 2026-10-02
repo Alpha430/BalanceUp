@@ -32,12 +32,21 @@ class AddExpenseItemActivity : BaseActivity() {
         setupEdgeToEdge(binding.root)
 
         val groupId = intent.getLongExtra("GROUP_ID", -1L)
-        if (groupId == -1L) {
+        val expenseId = intent.getLongExtra("EXPENSE_ID", -1L)
+
+        if (expenseId != -1L) {
+            viewModel.setExpenseId(expenseId)
+            binding.toolbar.title = "Update Expense"
+            binding.btnSaveExpense.text = "Update Expense"
+        } else if (groupId != -1L) {
+            viewModel.setGroupId(groupId)
+            binding.toolbar.title = "Add Expense"
+            binding.btnSaveExpense.text = "Save Expense"
+        } else {
             finish()
             return
         }
 
-        viewModel.setGroupId(groupId)
         setupRecyclerView()
         setupListeners()
         observeViewModel()
@@ -138,9 +147,19 @@ class AddExpenseItemActivity : BaseActivity() {
                     }
                 }
                 launch {
+                    viewModel.existingExpense.collect { expense ->
+                        expense?.let {
+                            binding.etProductName.setText(it.productName)
+                            binding.etPrice.setText(it.price.toString())
+                            binding.etPaidBy.setText(it.paidBy, false)
+                        }
+                    }
+                }
+                launch {
                     viewModel.saveSuccess.collect { success ->
                         if (success) {
-                            Toast.makeText(this@AddExpenseItemActivity, "Expense saved", Toast.LENGTH_SHORT).show()
+                            val msg = if (intent.hasExtra("EXPENSE_ID")) "Expense updated" else "Expense saved"
+                            Toast.makeText(this@AddExpenseItemActivity, msg, Toast.LENGTH_SHORT).show()
                             finish()
                         }
                     }

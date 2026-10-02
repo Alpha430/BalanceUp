@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alpha.balanceup.data.local.entity.ExpenseItemEntity
 import com.alpha.balanceup.databinding.ItemExpenseBinding
 
-class ExpenseAdapter : ListAdapter<ExpenseItemEntity, ExpenseAdapter.ViewHolder>(DiffCallback()) {
+class ExpenseAdapter(private val onExpenseClick: (ExpenseItemEntity) -> Unit) : 
+    ListAdapter<ExpenseItemEntity, ExpenseAdapter.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemExpenseBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -16,7 +17,9 @@ class ExpenseAdapter : ListAdapter<ExpenseItemEntity, ExpenseAdapter.ViewHolder>
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val item = getItem(position)
+        holder.bind(item)
+        holder.itemView.setOnClickListener { onExpenseClick(item) }
     }
 
     class ViewHolder(private val binding: ItemExpenseBinding) : RecyclerView.ViewHolder(binding.root) {

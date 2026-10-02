@@ -39,7 +39,7 @@ class DashboardActivity : BaseActivity() {
             val group = groupWithMemberCount.group
             when (binding.bottomNavigation.selectedItemId) {
                 R.id.navigation_home -> {
-                    val intent = Intent(this, GroupDetailsActivity::class.java).apply {
+                    val intent = Intent(this, ExpenseListActivity::class.java).apply {
                         putExtra("GROUP_ID", group.id)
                         putExtra("GROUP_NAME", group.name)
                     }
