@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.alpha.balanceup.data.local.entity.GroupEntity
+import com.alpha.balanceup.data.local.entity.GroupWithMemberCount
 import com.alpha.balanceup.databinding.ItemGroupBinding
 
-class GroupAdapter(private val onGroupClick: (GroupEntity) -> Unit) : 
-    ListAdapter<GroupEntity, GroupAdapter.ViewHolder>(DiffCallback()) {
+class GroupAdapter(private val onGroupClick: (GroupWithMemberCount) -> Unit) : 
+    ListAdapter<GroupWithMemberCount, GroupAdapter.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemGroupBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -17,24 +17,24 @@ class GroupAdapter(private val onGroupClick: (GroupEntity) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val group = getItem(position)
-        holder.bind(group)
-        holder.itemView.setOnClickListener { onGroupClick(group) }
+        val item = getItem(position)
+        holder.bind(item)
+        holder.itemView.setOnClickListener { onGroupClick(item) }
     }
 
     class ViewHolder(private val binding: ItemGroupBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: GroupEntity) {
-            binding.tvGroupName.text = item.name
-            // You can add more info like date or member count here if needed
+        fun bind(item: GroupWithMemberCount) {
+            binding.tvGroupName.text = item.group.name
+            binding.tvMemberCount.text = "${item.memberCount} members"
         }
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<GroupEntity>() {
-        override fun areItemsTheSame(oldItem: GroupEntity, newItem: GroupEntity): Boolean {
-            return oldItem.id == newItem.id
+    class DiffCallback : DiffUtil.ItemCallback<GroupWithMemberCount>() {
+        override fun areItemsTheSame(oldItem: GroupWithMemberCount, newItem: GroupWithMemberCount): Boolean {
+            return oldItem.group.id == newItem.group.id
         }
 
-        override fun areContentsTheSame(oldItem: GroupEntity, newItem: GroupEntity): Boolean {
+        override fun areContentsTheSame(oldItem: GroupWithMemberCount, newItem: GroupWithMemberCount): Boolean {
             return oldItem == newItem
         }
     }

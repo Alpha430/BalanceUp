@@ -4,6 +4,7 @@ import com.alpha.balanceup.data.local.dao.ExpenseDao
 import com.alpha.balanceup.data.local.entity.ExpenseItemEntity
 import com.alpha.balanceup.data.local.entity.GroupEntity
 import com.alpha.balanceup.data.local.entity.GroupMemberEntity
+import com.alpha.balanceup.data.local.entity.GroupWithMemberCount
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -14,6 +15,10 @@ class ExpenseRepository @Inject constructor(
 ) {
     fun getAllGroups(): Flow<List<GroupEntity>> {
         return expenseDao.getAllGroups()
+    }
+
+    fun getAllGroupsWithMemberCount(): Flow<List<GroupWithMemberCount>> {
+        return expenseDao.getAllGroupsWithMemberCount()
     }
 
     suspend fun createGroup(name: String): Long {

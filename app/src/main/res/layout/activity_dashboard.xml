@@ -22,11 +22,11 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/primary"
-            app:title="Groups"
+            app:title="Your Groups"
             app:titleTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Home Tab Header -->
+    <!-- Home Tab Header (Gradient + Summary Cards) -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutHeaderHome"
         android:layout_width="match_parent"
@@ -66,9 +66,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivAccount">
 
-            <!-- Total Spends Card -->
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardTotalSpends"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -103,9 +101,7 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- You Get Card -->
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardYouGet"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -142,7 +138,7 @@
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Barrier to keep list below whichever header is active -->
+    <!-- Barrier to anchor the list to whichever header is currently visible -->
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrierHeader"
         android:layout_width="wrap_content"
@@ -163,7 +159,6 @@
         app:layout_constraintTop_toBottomOf="@id/barrierHeader"
         tools:listitem="@layout/item_group" />
 
-    <!-- Empty State Message -->
     <TextView
         android:id="@+id/tvEmptyState"
         android:layout_width="wrap_content"
@@ -177,7 +172,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/barrierHeader" />
 
-    <!-- Floating Action Button for Add Group -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddExpense"
         android:layout_width="wrap_content"
@@ -191,7 +185,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/white" />
 
-    <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"

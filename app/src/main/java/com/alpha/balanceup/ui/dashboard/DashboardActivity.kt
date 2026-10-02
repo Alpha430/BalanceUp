@@ -35,7 +35,8 @@ class DashboardActivity : BaseActivity() {
     }
 
     private fun setupRecyclerView() {
-        groupAdapter = GroupAdapter { group ->
+        groupAdapter = GroupAdapter { groupWithMemberCount ->
+            val group = groupWithMemberCount.group
             when (binding.bottomNavigation.selectedItemId) {
                 R.id.navigation_home -> {
                     val intent = Intent(this, GroupDetailsActivity::class.java).apply {

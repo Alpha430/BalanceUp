@@ -4,6 +4,7 @@ import androidx.room.*
 import com.alpha.balanceup.data.local.entity.ExpenseItemEntity
 import com.alpha.balanceup.data.local.entity.GroupEntity
 import com.alpha.balanceup.data.local.entity.GroupMemberEntity
+import com.alpha.balanceup.data.local.entity.GroupWithMemberCount
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -26,6 +27,14 @@ interface ExpenseDao {
 
     @Query("SELECT * FROM groups ORDER BY createdAt DESC")
     fun getAllGroups(): Flow<List<GroupEntity>>
+
+    @Transaction
+    @Query("""
+        SELECT groups.*, (SELECT COUNT(*) FROM group_members WHERE groupId = groups.id) as memberCount 
+        FROM groups 
+        ORDER BY createdAt DESC
+    """)
+    fun getAllGroupsWithMemberCount(): Flow<List<GroupWithMemberCount>>
 
     @Query("SELECT * FROM groups WHERE id = :groupId")
     suspend fun getGroupById(groupId: Long): GroupEntity?

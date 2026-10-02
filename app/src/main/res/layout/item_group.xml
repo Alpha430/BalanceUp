@@ -42,24 +42,24 @@
                 android:id="@+id/tvGroupName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Trip to Goa"
                 android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                android:textColor="@color/primary" />
+                android:textColor="@color/primary"
+                tools:text="Group Name" />
 
             <TextView
                 android:id="@+id/tvMemberCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4 members"
                 android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                android:textColor="@color/text_secondary" />
+                android:textColor="@color/text_secondary"
+                tools:text="0 members" />
         </LinearLayout>
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:src="@drawable/ic_check"
-            app:tint="@color/text_secondary" />
+            app:tint="@color/text_hint" />
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
