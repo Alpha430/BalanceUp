@@ -38,7 +38,6 @@ class DashboardActivity : BaseActivity() {
         groupAdapter = GroupAdapter { group ->
             when (binding.bottomNavigation.selectedItemId) {
                 R.id.navigation_home -> {
-                    // From Home: Go to Group Details to add expense
                     val intent = Intent(this, GroupDetailsActivity::class.java).apply {
                         putExtra("GROUP_ID", group.id)
                         putExtra("GROUP_NAME", group.name)
@@ -46,7 +45,6 @@ class DashboardActivity : BaseActivity() {
                     startActivity(intent)
                 }
                 R.id.navigation_group -> {
-                    // From Group: Go to Group Members list
                     val intent = Intent(this, GroupMembersActivity::class.java).apply {
                         putExtra("GROUP_ID", group.id)
                         putExtra("GROUP_NAME", group.name)
@@ -70,15 +68,14 @@ class DashboardActivity : BaseActivity() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
-                    binding.topSection.visibility = View.VISIBLE
-                    binding.layoutCards.visibility = View.VISIBLE
+                    binding.layoutHeaderHome.visibility = View.VISIBLE
+                    binding.appBarGroup.visibility = View.GONE
                     binding.fabAddExpense.show()
                     true
                 }
                 R.id.navigation_group -> {
-                    // Hide dashboard specific header if needed
-                    binding.topSection.visibility = View.GONE
-                    binding.layoutCards.visibility = View.GONE
+                    binding.layoutHeaderHome.visibility = View.GONE
+                    binding.appBarGroup.visibility = View.VISIBLE
                     binding.fabAddExpense.hide()
                     true
                 }
