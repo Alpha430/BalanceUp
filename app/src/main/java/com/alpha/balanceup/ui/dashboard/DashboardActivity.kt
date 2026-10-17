@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alpha.balanceup.R
 import com.alpha.balanceup.core.base.BaseActivity
 import com.alpha.balanceup.databinding.ActivityDashboardBinding
+import com.alpha.balanceup.ui.auth.AliasActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -73,6 +74,11 @@ class DashboardActivity : BaseActivity() {
             startActivity(intent)
         }
 
+        binding.ivAccount.setOnClickListener {
+            val intent = Intent(this, AliasActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
@@ -87,10 +93,7 @@ class DashboardActivity : BaseActivity() {
                     binding.fabAddExpense.hide()
                     true
                 }
-                R.id.navigation_analytics -> {
-                    // Analytics logic
-                    true
-                }
+
                 else -> false
             }
         }

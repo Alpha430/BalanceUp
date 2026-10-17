@@ -18,9 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="?attr/homeAsUpIndicator"
-            app:navigationIconTint="@color/white"
+            app:navigationIconTint="@color/onPrimary"
             app:title="Group Details"
-            app:titleTextColor="@color/white" />
+            app:titleTextColor="@color/onPrimary" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -40,9 +40,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="Add Expense"
-        android:textColor="@color/white"
+        android:textColor="@color/onPrimary"
         app:icon="@drawable/ic_add"
-        app:iconTint="@color/white"
+        app:iconTint="@color/onPrimary"
         app:backgroundTint="@color/primary"
         app:layout_constraintBottom_toTopOf="@id/layoutBottom"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -51,9 +51,10 @@
         android:id="@+id/layoutBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/white"
+        app:cardBackgroundColor="@color/surface"
         app:cardCornerRadius="0dp"
         app:cardElevation="16dp"
+        app:strokeWidth="0dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
@@ -74,6 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Group Total"
+                    android:textColor="@color/text_primary"
                     android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
                 <TextView
@@ -91,6 +93,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:text="Balance Up"
+                android:textColor="@color/button_primary_text"
+                app:backgroundTint="@color/button_primary_bg"
                 app:cornerRadius="12dp" />
 
         </LinearLayout>

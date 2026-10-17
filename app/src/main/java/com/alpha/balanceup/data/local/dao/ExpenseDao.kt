@@ -1,6 +1,12 @@
 package com.alpha.balanceup.data.local.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Transaction
+import androidx.room.Update
 import com.alpha.balanceup.data.local.entity.ExpenseItemEntity
 import com.alpha.balanceup.data.local.entity.GroupEntity
 import com.alpha.balanceup.data.local.entity.GroupMemberEntity
@@ -54,7 +60,7 @@ interface ExpenseDao {
     @Query("SELECT * FROM groups WHERE id = :groupId")
     fun getGroupByIdFlow(groupId: Long): Flow<GroupEntity?>
 
-    @Query("SELECT * FROM group_members WHERE groupId = :groupId")
+    @Query("SELECT * FROM group_members WHERE groupId = :groupId ORDER BY id DESC")
     fun getMembersForGroup(groupId: Long): Flow<List<GroupMemberEntity>>
 
     @Query("SELECT * FROM expense_items WHERE groupId = :groupId ORDER BY createdAt DESC")
@@ -65,4 +71,10 @@ interface ExpenseDao {
 
     @Query("SELECT SUM(price) FROM expense_items WHERE groupId = :groupId")
     fun getTotalExpenseForGroup(groupId: Long): Flow<Double?>
+
+    @Query("UPDATE group_members SET name = :newName WHERE name = :oldName")
+    suspend fun updateMemberName(oldName: String, newName: String)
+
+    @Query("UPDATE expense_items SET paidBy = :newName WHERE paidBy = :oldName")
+    suspend fun updateExpensePaidBy(oldName: String, newName: String)
 }

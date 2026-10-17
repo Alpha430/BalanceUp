@@ -10,7 +10,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/surface"
         app:elevation="0dp">
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -19,8 +19,9 @@
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_close"
             app:title="Settlement Summary"
-            android:background="@color/button_primary_bg"
-            app:titleTextColor="@color/white" />
+            android:background="@color/app_bar_bg"
+            app:titleTextColor="@color/on_app_bar"
+            app:navigationIconTint="@color/on_app_bar" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -39,6 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/surface"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
                 app:strokeWidth="0dp">
@@ -69,7 +71,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginVertical="12dp"
-                        android:background="#EEEEEE" />
+                        android:background="@color/divider" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -135,7 +137,10 @@
         android:layout_gravity="bottom"
         android:layout_margin="16dp"
         android:text="Add Another Expense"
+        android:textColor="@color/button_primary_text"
+        app:backgroundTint="@color/button_primary_bg"
         app:cornerRadius="12dp"
-        app:icon="@drawable/ic_add" />
+        app:icon="@drawable/ic_add"
+        app:iconTint="@color/button_primary_text" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

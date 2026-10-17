@@ -15,6 +15,8 @@ import java.util.UUID
 class AliasActivity : BaseActivity() {
 
     private lateinit var binding: ActivityAliasBinding
+    private var existingUser: UserEntity? = null
+    private var isEditMode = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,13 +24,63 @@ class AliasActivity : BaseActivity() {
         setContentView(binding.root)
         setupEdgeToEdge(binding.root)
 
+        checkExistingUser()
+
+        binding.btnClose.setOnClickListener {
+            finish()
+        }
+
         binding.btnContinue.setOnClickListener {
             val alias = binding.etAlias.text.toString().trim()
             if (alias.isNotEmpty()) {
-                handleGuestSignIn(alias)
+                if (isEditMode) {
+                    updateAlias(alias)
+                } else {
+                    handleGuestSignIn(alias)
+                }
             } else {
                 binding.tilAlias.error = "Alias cannot be empty"
             }
+        }
+    }
+
+    private fun checkExistingUser() {
+        lifecycleScope.launch {
+            val db = AppDatabase.getDatabase(this@AliasActivity)
+            existingUser = db.userDao().getUser()
+            existingUser?.let { user ->
+                isEditMode = true
+                binding.tvAliasTitle.text = "Update Your Alias"
+                binding.btnContinue.text = "Update"
+                val alias =
+                    if (user.name.contains("_")) user.name.substringBeforeLast("_") else user.name
+                binding.etAlias.setText(alias)
+            }
+        }
+    }
+
+    private fun updateAlias(newAlias: String) {
+        lifecycleScope.launch {
+            val user = existingUser ?: return@launch
+            val uniqueId =
+                if (user.name.contains("_")) user.name.substringAfterLast("_") else UUID.randomUUID()
+                    .toString().take(8)
+            val newProfileName = "${newAlias}_$uniqueId"
+            val oldProfileName = user.name
+
+            val updatedUser = user.copy(name = newProfileName)
+            val db = AppDatabase.getDatabase(this@AliasActivity)
+
+            // 1. Update user table
+            db.userDao().update(updatedUser)
+
+            // 2. Update all occurrences in groups and expenses to maintain stats consistency
+            db.expenseDao().updateMemberName(oldProfileName, newProfileName)
+            db.expenseDao().updateExpensePaidBy(oldProfileName, newProfileName)
+
+            Toast.makeText(this@AliasActivity, "Profile updated successfully", Toast.LENGTH_SHORT)
+                .show()
+            finish()
         }
     }
 

@@ -1,7 +1,6 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Base.Theme.BalanceUp"
-        parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Base.Theme.BalanceUp" parent="Theme.Material3.DayNight.NoActionBar">
 
         <!-- Brand -->
         <item name="colorPrimary">@color/primary</item>
@@ -10,10 +9,15 @@
         <!-- Background -->
         <item name="android:colorBackground">@color/background</item>
         <item name="colorSurface">@color/surface</item>
+        <item name="colorSurfaceVariant">@color/surface</item>
 
         <!-- Status / Nav Bars -->
         <item name="android:statusBarColor">@color/background</item>
         <item name="android:navigationBarColor">@color/background</item>
+
+        <!-- System Bar Icons (False = Light icons) -->
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
 
         <!-- Text -->
         <item name="android:textColorPrimary">@color/text_primary</item>

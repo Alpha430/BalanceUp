@@ -4,31 +4,30 @@
     <color name="white">#FFFFFFFF</color>
     <color name="status_bar_light">#E7E3E3</color>
 
-    <color name="primary">#F57C00</color>          <!-- Main Orange -->
-    <color name="onPrimary">#FFFFFF</color>        <!-- Text on orange -->
+    <color name="primary">#F57C00</color>
+    <color name="onPrimary">#FFFFFF</color>
 
-    <color name="gradient_start">#F57C00</color>   <!-- Orange -->
-    <color name="gradient_end">#FFE0B2</color>     <!-- Light Orange -->
+    <color name="gradient_start">#F57C00</color>
+    <color name="gradient_end">#FFE0B2</color>
 
-    <color name="background">#FFF8F1</color>       <!-- Warm light background -->
-    <color name="surface">#FFFFFF</color>          <!-- Cards / sheets -->
+    <color name="background">#FFF8F1</color>
+    <color name="surface">#FFFFFF</color>
 
-    <!-- Primary Text -->
+    <color name="divider">#EEEEEE</color>
+    <color name="border">#F0F0F0</color>
+
+    <!-- Balance Colors -->
+    <color name="positive_balance">#2E7D32</color> <!-- Dark Green -->
+    <color name="negative_balance">#C62828</color> <!-- Dark Red -->
+
     <color name="text_primary">#1C1B1F</color>
-
-    <!-- Secondary Text -->
     <color name="text_secondary">#49454F</color>
-
-    <!-- Hint / Disabled Text -->
     <color name="text_hint">#79747E</color>
-
-    <!-- Text on Orange Buttons -->
-    <color name="text_on_primary">#FFFFFF</color>
 
     <color name="button_primary_bg">#F57C00</color>
     <color name="button_primary_text">#FFFFFF</color>
     <color name="button_primary_pressed">#E65100</color>
-    <color name="button_secondary_bg">#FFE0B2</color>   <!-- Light orange -->
+    <color name="button_secondary_bg">#FFE0B2</color>
     <color name="button_secondary_text">#F57C00</color>
 
     <color name="button_disabled_bg">#E0E0E0</color>

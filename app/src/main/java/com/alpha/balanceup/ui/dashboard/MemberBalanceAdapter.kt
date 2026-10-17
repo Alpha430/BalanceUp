@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.alpha.balanceup.R
 import com.alpha.balanceup.databinding.ItemMemberBalanceBinding
 
 class MemberBalanceAdapter : ListAdapter<ExpenseDetailsViewModel.MemberBalance, MemberBalanceAdapter.ViewHolder>(DiffCallback()) {
@@ -21,6 +22,7 @@ class MemberBalanceAdapter : ListAdapter<ExpenseDetailsViewModel.MemberBalance, 
 
     class ViewHolder(private val binding: ItemMemberBalanceBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ExpenseDetailsViewModel.MemberBalance) {
+            val context = binding.root.context
             // Display only the alias part if it's a guest-style name
             binding.tvMemberName.text = if (item.name.contains("_")) item.name.substringBeforeLast("_") else item.name
             binding.tvTotalPaid.text = "Paid: ₹ ${String.format("%.2f", item.totalPaid)}"
@@ -28,13 +30,23 @@ class MemberBalanceAdapter : ListAdapter<ExpenseDetailsViewModel.MemberBalance, 
             val netValue = Math.abs(item.net)
             if (item.net >= 0.01) {
                 binding.tvNetStatus.text = "gets back ₹ ${String.format("%.2f", netValue)}"
-                binding.tvNetStatus.setTextColor(ContextCompat.getColor(binding.root.context, android.R.color.holo_green_dark))
+                binding.tvNetStatus.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.positive_balance
+                    )
+                )
             } else if (item.net <= -0.01) {
                 binding.tvNetStatus.text = "owes ₹ ${String.format("%.2f", netValue)}"
-                binding.tvNetStatus.setTextColor(ContextCompat.getColor(binding.root.context, android.R.color.holo_red_dark))
+                binding.tvNetStatus.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.negative_balance
+                    )
+                )
             } else {
                 binding.tvNetStatus.text = "settled up"
-                binding.tvNetStatus.setTextColor(ContextCompat.getColor(binding.root.context, android.R.color.darker_gray))
+                binding.tvNetStatus.setTextColor(ContextCompat.getColor(context, R.color.text_hint))
             }
         }
     }
