@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alpha.balanceup.R
 import com.alpha.balanceup.core.base.BaseActivity
@@ -39,7 +41,12 @@ class DashboardActivity : BaseActivity() {
             val group = groupWithMemberCount.group
             when (binding.bottomNavigation.selectedItemId) {
                 R.id.navigation_home -> {
-                    val intent = Intent(this, ExpenseListActivity::class.java).apply {
+                    val destination = if (group.isCalculated) {
+                        SummaryActivity::class.java
+                    } else {
+                        ExpenseListActivity::class.java
+                    }
+                    val intent = Intent(this, destination).apply {
                         putExtra("GROUP_ID", group.id)
                         putExtra("GROUP_NAME", group.name)
                     }
@@ -91,14 +98,36 @@ class DashboardActivity : BaseActivity() {
 
     private fun observeViewModel() {
         lifecycleScope.launch {
-            viewModel.allGroups.collect { groups ->
-                if (groups.isEmpty()) {
-                    binding.tvEmptyState.visibility = View.VISIBLE
-                    binding.rvGroups.visibility = View.GONE
-                } else {
-                    binding.tvEmptyState.visibility = View.GONE
-                    binding.rvGroups.visibility = View.VISIBLE
-                    groupAdapter.submitList(groups)
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.allGroups.collect { groups ->
+                        if (groups.isEmpty()) {
+                            binding.tvEmptyState.visibility = View.VISIBLE
+                            binding.rvGroups.visibility = View.GONE
+                        } else {
+                            binding.tvEmptyState.visibility = View.GONE
+                            binding.rvGroups.visibility = View.VISIBLE
+                            groupAdapter.submitList(groups)
+                        }
+                    }
+                }
+                
+                launch {
+                    viewModel.userAlias.collect { alias ->
+                        binding.tvUserAlias.text = "Hello, $alias"
+                    }
+                }
+                
+                launch {
+                    viewModel.totalSpends.collect { total ->
+                        binding.tvTotalSpendsValue.text = "₹ ${String.format("%.2f", total)}"
+                    }
+                }
+                
+                launch {
+                    viewModel.youGet.collect { totalOwed ->
+                        binding.tvYouGetValue.text = "₹ ${String.format("%.2f", totalOwed)}"
+                    }
                 }
             }
         }

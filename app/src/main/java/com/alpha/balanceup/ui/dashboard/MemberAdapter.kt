@@ -21,7 +21,8 @@ class MemberAdapter : ListAdapter<GroupMemberEntity, MemberAdapter.ViewHolder>(D
 
     class ViewHolder(private val binding: ItemMemberBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: GroupMemberEntity) {
-            binding.tvMemberName.text = item.name
+            // Display only the alias part (before the underscore) if it's a guest-style name
+            binding.tvMemberName.text = if (item.name.contains("_")) item.name.substringBeforeLast("_") else item.name
         }
     }
 

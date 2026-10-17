@@ -63,7 +63,7 @@
 
     <style name="Theme.BalanceUp.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/background</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/split_logo</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_split_logo</item>
         <item name="postSplashScreenTheme">@style/Theme.BalanceUp</item>
     </style>
 

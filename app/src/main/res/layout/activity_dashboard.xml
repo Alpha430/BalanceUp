@@ -54,6 +54,19 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white" />
 
+        <TextView
+            android:id="@+id/tvUserAlias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/ivAccount"
+            app:layout_constraintStart_toEndOf="@id/ivAccount"
+            app:layout_constraintTop_toTopOf="@id/ivAccount"
+            tools:text="Hello, Guest" />
+
         <LinearLayout
             android:id="@+id/layoutCards"
             android:layout_width="0dp"

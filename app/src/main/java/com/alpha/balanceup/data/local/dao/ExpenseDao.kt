@@ -13,6 +13,9 @@ interface ExpenseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertGroup(group: GroupEntity): Long
 
+    @Update
+    suspend fun updateGroup(group: GroupEntity)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertGroupMember(member: GroupMemberEntity)
 
@@ -28,6 +31,12 @@ interface ExpenseDao {
     @Query("DELETE FROM groups WHERE id = :groupId")
     suspend fun deleteGroupById(groupId: Long)
 
+    @Query("UPDATE groups SET isCalculated = :isCalculated WHERE id = :groupId")
+    suspend fun updateGroupCalculationStatus(groupId: Long, isCalculated: Boolean)
+
+    @Query("DELETE FROM expense_items WHERE id IN (:expenseIds)")
+    suspend fun deleteExpenseItems(expenseIds: List<Long>)
+
     @Query("SELECT * FROM groups ORDER BY createdAt DESC")
     fun getAllGroups(): Flow<List<GroupEntity>>
 
@@ -41,6 +50,9 @@ interface ExpenseDao {
 
     @Query("SELECT * FROM groups WHERE id = :groupId")
     suspend fun getGroupById(groupId: Long): GroupEntity?
+
+    @Query("SELECT * FROM groups WHERE id = :groupId")
+    fun getGroupByIdFlow(groupId: Long): Flow<GroupEntity?>
 
     @Query("SELECT * FROM group_members WHERE groupId = :groupId")
     fun getMembersForGroup(groupId: Long): Flow<List<GroupMemberEntity>>

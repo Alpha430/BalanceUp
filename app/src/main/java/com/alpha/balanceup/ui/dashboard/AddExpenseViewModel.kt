@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alpha.balanceup.data.local.entity.GroupMemberEntity
 import com.alpha.balanceup.data.repository.ExpenseRepository
+import com.alpha.balanceup.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -11,7 +12,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddExpenseViewModel @Inject constructor(
-    private val repository: ExpenseRepository
+    private val repository: ExpenseRepository,
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     private val _groupId = MutableStateFlow<Long?>(null)
@@ -26,6 +28,11 @@ class AddExpenseViewModel @Inject constructor(
         viewModelScope.launch {
             val id = repository.createGroup(name)
             _groupId.value = id
+            
+            // Automatically add the current user as the first member
+            userRepository.getUser()?.let { user ->
+                repository.addMember(GroupMemberEntity(groupId = id, name = user.name))
+            }
         }
     }
 

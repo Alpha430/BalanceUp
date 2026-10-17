@@ -37,6 +37,11 @@
             android:label="Add Expense" />
 
         <activity
+            android:name=".ui.dashboard.SummaryActivity"
+            android:exported="false"
+            android:label="Summary" />
+
+        <activity
             android:name=".ui.main.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.BalanceUp.Splash" >
@@ -48,6 +53,11 @@
 
         <activity
             android:name=".ui.auth.SignInActivity"
+            android:theme="@style/Base.Theme.BalanceUp"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.auth.AliasActivity"
             android:theme="@style/Base.Theme.BalanceUp"
             android:exported="false" />
     </application>

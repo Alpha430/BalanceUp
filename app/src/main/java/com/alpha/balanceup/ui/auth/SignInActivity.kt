@@ -22,7 +22,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.launch
-import java.util.UUID
 
 class SignInActivity : BaseActivity() {
 
@@ -53,28 +52,14 @@ class SignInActivity : BaseActivity() {
         }
 
         binding.tvSkip.setOnClickListener {
-            handleGuestSignIn()
+            navigateToAlias()
         }
 
     }
 
-    private fun handleGuestSignIn() {
-        lifecycleScope.launch {
-            val uniqueId = UUID.randomUUID().toString()
-            val guestUser = UserEntity(
-                id = uniqueId,
-                name = "Guest_${uniqueId.take(8)}",
-                email = null,
-                googleId = null,
-                isGuest = true,
-                synced = false
-            )
-            
-            val db = AppDatabase.getDatabase(this@SignInActivity)
-            db.userDao().insert(guestUser)
-            
-            navigateToDashboard()
-        }
+    private fun navigateToAlias() {
+        val intent = Intent(this, AliasActivity::class.java)
+        startActivity(intent)
     }
 
     private fun navigateToDashboard() {

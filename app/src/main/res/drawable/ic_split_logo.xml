@@ -1,0 +1,22 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <!-- Clean Circle Background -->
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M100,100m-85,0a85,85 0,1 1,170 0a85,85 0,1 1,-170 0" />
+
+    <!-- Sharp Upward Trend Line (Centered) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M140,75l-35,35l-20,-20l-45,45l10,10l35,-35l20,20l45,-45L140,75z" />
+
+    <!-- Stylized Currency Details -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M90,130h20v5h-20zM90,140h20v5h-20z" />
+
+</vector>

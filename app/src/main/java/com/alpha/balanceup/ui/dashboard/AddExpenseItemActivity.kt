@@ -64,7 +64,6 @@ class AddExpenseItemActivity : BaseActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
 
-        // Listen for price changes to update equal split real-time
         binding.etPrice.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -88,12 +87,17 @@ class AddExpenseItemActivity : BaseActivity() {
         binding.btnSaveExpense.setOnClickListener {
             val name = binding.etProductName.text.toString().trim()
             val priceStr = binding.etPrice.text.toString().trim()
-            val paidBy = binding.etPaidBy.text.toString().trim()
+            val displayedPaidBy = binding.etPaidBy.text.toString().trim()
 
-            if (name.isEmpty() || priceStr.isEmpty() || paidBy.isEmpty()) {
+            if (name.isEmpty() || priceStr.isEmpty() || displayedPaidBy.isEmpty()) {
                 Toast.makeText(this, "Please fill all required fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
+            // Map the displayed alias back to the full unique name for calculation
+            val fullPaidBy = groupMembersList.find { 
+                (if (it.name.contains("_")) it.name.substringBeforeLast("_") else it.name) == displayedPaidBy 
+            }?.name ?: displayedPaidBy
 
             val totalPrice = priceStr.toDoubleOrNull() ?: 0.0
 
@@ -114,7 +118,7 @@ class AddExpenseItemActivity : BaseActivity() {
                 }
             }
 
-            viewModel.saveExpense(name, priceStr, paidBy)
+            viewModel.saveExpense(name, priceStr, fullPaidBy)
         }
     }
 
@@ -134,11 +138,14 @@ class AddExpenseItemActivity : BaseActivity() {
                 launch {
                     viewModel.groupMembers.collect { members ->
                         groupMembersList = members
-                        val names = members.map { it.name }.toTypedArray()
-                        binding.etPaidBy.setSimpleItems(names)
+                        // Display only the alias part in the dropdown
+                        val displayNames = members.map { 
+                            if (it.name.contains("_")) it.name.substringBeforeLast("_") else it.name 
+                        }.toTypedArray()
+                        
+                        binding.etPaidBy.setSimpleItems(displayNames)
                         manualShareAdapter.submitList(members)
                         
-                        // Show the shares list and set editability based on selection
                         binding.layoutManualSplit.visibility = View.VISIBLE
                         manualShareAdapter.setEditable(!binding.rbSplitEqually.isChecked)
                         if (binding.rbSplitEqually.isChecked) {
@@ -151,7 +158,9 @@ class AddExpenseItemActivity : BaseActivity() {
                         expense?.let {
                             binding.etProductName.setText(it.productName)
                             binding.etPrice.setText(it.price.toString())
-                            binding.etPaidBy.setText(it.paidBy, false)
+                            // Convert full name to alias for display when editing
+                            val displayAlias = if (it.paidBy.contains("_")) it.paidBy.substringBeforeLast("_") else it.paidBy
+                            binding.etPaidBy.setText(displayAlias, false)
                         }
                     }
                 }

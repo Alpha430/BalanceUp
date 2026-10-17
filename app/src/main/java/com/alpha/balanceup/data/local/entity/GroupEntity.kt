@@ -8,5 +8,6 @@ data class GroupEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     val name: String,
+    val isCalculated: Boolean = false,
     val createdAt: Long = System.currentTimeMillis()
 )

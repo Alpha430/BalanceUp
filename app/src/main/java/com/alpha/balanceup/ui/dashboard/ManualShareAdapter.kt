@@ -49,7 +49,8 @@ class ManualShareAdapter : RecyclerView.Adapter<ManualShareAdapter.ViewHolder>()
         private var currentWatcher: TextWatcher? = null
 
         fun bind(member: GroupMemberEntity) {
-            binding.tvMemberName.text = member.name
+            // Display only the alias part if it's a guest-style name
+            binding.tvMemberName.text = if (member.name.contains("_")) member.name.substringBeforeLast("_") else member.name
             
             // Cleanup to avoid infinite loops and recycling issues
             currentWatcher?.let { binding.etAmount.removeTextChangedListener(it) }

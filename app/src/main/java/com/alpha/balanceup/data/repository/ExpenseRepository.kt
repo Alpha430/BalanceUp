@@ -35,10 +35,14 @@ class ExpenseRepository @Inject constructor(
 
     suspend fun addExpenseItem(item: ExpenseItemEntity) {
         expenseDao.insertExpenseItem(item)
+        // Mark group as not calculated when new expense is added
+        updateGroupCalculationStatus(item.groupId, false)
     }
 
     suspend fun updateExpenseItem(item: ExpenseItemEntity) {
         expenseDao.updateExpenseItem(item)
+        // Mark group as not calculated when expense is updated
+        updateGroupCalculationStatus(item.groupId, false)
     }
 
     suspend fun getExpenseById(expenseId: Long): ExpenseItemEntity? {
@@ -49,11 +53,23 @@ class ExpenseRepository @Inject constructor(
         expenseDao.deleteGroupById(groupId)
     }
 
+    suspend fun deleteExpenseItems(expenseIds: List<Long>) {
+        if (expenseIds.isNotEmpty()) {
+            val firstExpense = getExpenseById(expenseIds[0])
+            expenseDao.deleteExpenseItems(expenseIds)
+            firstExpense?.let { updateGroupCalculationStatus(it.groupId, false) }
+        }
+    }
+
     fun getExpensesForGroup(groupId: Long): Flow<List<ExpenseItemEntity>> {
         return expenseDao.getExpensesForGroup(groupId)
     }
 
     fun getTotalExpenseForGroup(groupId: Long): Flow<Double?> {
         return expenseDao.getTotalExpenseForGroup(groupId)
+    }
+
+    suspend fun updateGroupCalculationStatus(groupId: Long, isCalculated: Boolean) {
+        expenseDao.updateGroupCalculationStatus(groupId, isCalculated)
     }
 }
