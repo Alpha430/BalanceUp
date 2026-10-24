@@ -1,12 +1,12 @@
 package com.alpha.balanceup.ui.dashboard
 
 import android.os.Bundle
-import com.alpha.balanceup.R
 import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alpha.balanceup.R
 import com.alpha.balanceup.core.base.BaseActivity
 import com.alpha.balanceup.databinding.ActivityGroupMembersBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -18,7 +18,9 @@ class GroupMembersActivity : BaseActivity() {
 
     private lateinit var binding: ActivityGroupMembersBinding
     private val viewModel: GroupMembersViewModel by viewModels()
-    private val adapter = MemberAdapter()
+    private val adapter = MemberAdapter { member ->
+        viewModel.deleteMember(member)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

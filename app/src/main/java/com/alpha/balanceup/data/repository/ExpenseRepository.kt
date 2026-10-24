@@ -29,6 +29,10 @@ class ExpenseRepository @Inject constructor(
         expenseDao.insertGroupMember(member)
     }
 
+    suspend fun deleteMember(member: GroupMemberEntity) {
+        expenseDao.deleteGroupMember(member)
+    }
+
     fun getMembersForGroup(groupId: Long): Flow<List<GroupMemberEntity>> {
         return expenseDao.getMembersForGroup(groupId)
     }

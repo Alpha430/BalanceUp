@@ -20,7 +20,9 @@ class AddGroupActivity : BaseActivity() {
 
     private lateinit var binding: ActivityAddExpenseBinding
     private val viewModel: AddExpenseViewModel by viewModels()
-    private val memberAdapter = MemberAdapter()
+    private val memberAdapter = MemberAdapter { member ->
+        viewModel.deleteMember(member)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,8 +98,9 @@ class AddGroupActivity : BaseActivity() {
 
     private fun handleCreateGroupStep() {
         val groupName = binding.etGroupName.text.toString().trim()
+        val includeSelf = binding.switchIncludeSelf.isChecked
         if (groupName.isNotBlank()) {
-            viewModel.createGroup(groupName)
+            viewModel.createGroup(groupName, includeSelf)
         } else {
             binding.tilGroupName.error = "Enter group name"
         }
@@ -114,8 +117,8 @@ class AddGroupActivity : BaseActivity() {
     }
 
     private fun handleFinalCreateGroup() {
-        if (memberAdapter.itemCount < 2) {
-            Toast.makeText(this, "Add at least 2 people", Toast.LENGTH_SHORT).show()
+        if (memberAdapter.itemCount < 1) {
+            Toast.makeText(this, "Add at least 1 person", Toast.LENGTH_SHORT).show()
             binding.etMemberName.requestFocus()
             return
         }
@@ -133,6 +136,7 @@ class AddGroupActivity : BaseActivity() {
                             binding.btnCreateGroup.visibility = View.VISIBLE
                             binding.tilGroupName.isEnabled = false
                             binding.tilGroupName.setEndIconDrawable(null)
+                            binding.switchIncludeSelf.visibility = View.GONE
 
                             // Auto focus the next field
                             binding.etMemberName.requestFocus()

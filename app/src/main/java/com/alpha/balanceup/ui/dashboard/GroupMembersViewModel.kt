@@ -5,7 +5,12 @@ import androidx.lifecycle.viewModelScope
 import com.alpha.balanceup.data.local.entity.GroupMemberEntity
 import com.alpha.balanceup.data.repository.ExpenseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,6 +28,12 @@ class GroupMembersViewModel @Inject constructor(
 
     fun setGroupId(id: Long) {
         _groupId.value = id
+    }
+
+    fun deleteMember(member: GroupMemberEntity) {
+        viewModelScope.launch {
+            repository.deleteMember(member)
+        }
     }
 
     fun deleteGroup() {

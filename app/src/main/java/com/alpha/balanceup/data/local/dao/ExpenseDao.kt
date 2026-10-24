@@ -25,6 +25,9 @@ interface ExpenseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertGroupMember(member: GroupMemberEntity)
 
+    @Delete
+    suspend fun deleteGroupMember(member: GroupMemberEntity)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertExpenseItem(item: ExpenseItemEntity)
 

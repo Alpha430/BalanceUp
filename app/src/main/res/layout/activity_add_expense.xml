@@ -64,6 +64,17 @@
                     android:imeOptions="actionDone" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switchIncludeSelf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:checked="true"
+                android:text="Include me in this group"
+                android:textColor="@color/text_primary"
+                app:thumbTint="@color/primary"
+                app:trackTint="@color/button_secondary_bg" />
+
             <!-- Step 2: Add Members (Initially Hidden) -->
             <LinearLayout
                 android:id="@+id/layoutAddMembers"
