@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible">
 
-        <com.google.android.material.appbar.MaterialToolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarGroup"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
